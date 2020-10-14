@@ -155,6 +155,38 @@ namespace vzh.NetHelpers
     /// <returns>Nodes count</returns>
     public int Count() => _root?.GetVolume() ?? default;
 
+    /// <summary>
+    ///   Checks if provided key exists in the tree
+    /// </summary>
+    /// <returns>True if exists</returns>
+    public bool ContainsKey(TKey key)
+    {
+      return Find(key) != null;
+    }
+
+    /// <summary>
+    ///   Accesses nodes by provided key
+    /// </summary>
+    public TValue this[TKey key]
+    {
+      get
+      {
+        var node = Find(key);
+        if (node == null)
+          throw new KeyNotFoundException($"Key '{key}' not found in the tree");
+
+          return node.Value;
+      }
+      set
+      {
+        var node = Find(key);
+        if (node == null)
+          Insert(key, value);
+        else
+          node.SetData(key, value);
+      }
+    }
+
     private void DeletionFix(Node<TKey, TValue> node)
     {
       if (node.Parent != null)

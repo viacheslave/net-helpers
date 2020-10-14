@@ -249,6 +249,67 @@ namespace vzh.NetHelpers.Tests
       Assert.Null(result);
     }
 
+    [Theory]
+    [InlineData(1000, 1, 5, 1, true)]
+    [InlineData(1000, 1, 5, 4997, false)]
+    public void ContainsKey_Tests(int elements, int start, int increment, int key, bool expected)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.ContainsKey(key);
+      Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData(1000, 1, 5, 1, 1)]
+    [InlineData(1000, 1, 5, 4996, 4996)]
+    public void Indexer_Getter_Returns_Value(int elements, int start, int increment, int key, int expected)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt[key];
+      Assert.Equal(result, expected);
+    }
+
+    [Theory]
+    [InlineData(1000, 1, 5, 0)]
+    [InlineData(1000, 1, 5, 4997)]
+    public void Indexer_Getter_Throws(int elements, int start, int increment, int key)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      Assert.Throws<KeyNotFoundException>(() => rbt[key]);
+    }
+
+    [Theory]
+    [InlineData(1000, 1, 5, 1, 10000)]
+    public void Indexer_Setter_Updates(int elements, int start, int increment, int key, int newValue)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      rbt[key] = newValue;
+
+      Assert.Equal(1000, rbt.Count());
+      Assert.Equal(10000, rbt[key]);
+    }
+
+    [Theory]
+    [InlineData(1000, 1, 5, 10000, 10000)]
+    public void Indexer_Setter_Inserts(int elements, int start, int increment, int key, int newValue)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      rbt[key] = newValue;
+
+      Assert.Equal(1000 + 1, rbt.Count());
+      Assert.Equal(10000, rbt[key]);
+    }
+
     private static Dictionary<int, int> BuildSUT(int elements, int start, int increment)
     {
       var data = new Dictionary<int, int>();
