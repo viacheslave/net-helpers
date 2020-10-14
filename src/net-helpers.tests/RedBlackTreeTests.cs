@@ -93,7 +93,7 @@ namespace vzh.NetHelpers.Tests
       var rbt = new RedBlackTree<int, int>(data);
 
       var result = rbt.Find(el);
-      Assert.Equal(result != null, expected);
+      Assert.Equal(expected, result != null);
     }
 
     [Theory]
@@ -106,7 +106,7 @@ namespace vzh.NetHelpers.Tests
 
       var result = rbt.First();
       Assert.NotNull(result);
-      Assert.Equal(result.Key, expected);
+      Assert.Equal(expected, result.Key);
     }
 
     [Fact]
@@ -129,7 +129,7 @@ namespace vzh.NetHelpers.Tests
 
       var result = rbt.Last();
       Assert.NotNull(result);
-      Assert.Equal(result.Key, expected);
+      Assert.Equal(expected, result.Key);
     }
 
     [Fact]
@@ -175,7 +175,80 @@ namespace vzh.NetHelpers.Tests
       var result = rbt.IsEmpty();
       Assert.True(result);
     }
-    
+
+    [Theory]
+    [InlineData(1000, 1, 1, 1000)]
+    public void Count_Returns_Count(int elements, int start, int increment, int expected)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.Count();
+      Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void Count_Returns_Zero()
+    {
+      var data = new Dictionary<int, int>();
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.Count();
+      Assert.Equal(0, result);
+    }
+
+    [Theory]
+    [InlineData(1000, 1, 5, 8, true, 6)]
+    [InlineData(1000, 1, 5, 11, true, 11)]
+    [InlineData(1000, 1, 5, 8, false, 6)]
+    [InlineData(1000, 1, 5, 11, false, 6)]
+    [InlineData(1000, 1, 5, 6000, false, 4996)]
+    public void GetFloor_Tests(int elements, int start, int increment, int key, bool orSelf, int expected)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.GetFloor(key, orSelf);
+      Assert.Equal(expected, result.Key);
+    }
+
+    [Theory]
+    [InlineData(1000, 1, 5, -1, true)]
+    public void GetFloor_Tests_Returns_Null(int elements, int start, int increment, int key, bool orSelf)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.GetFloor(key, orSelf);
+      Assert.Null(result);
+    }
+
+    [Theory]
+    [InlineData(1000, 1, 5, 8, true, 11)]
+    [InlineData(1000, 1, 5, 11, true, 11)]
+    [InlineData(1000, 1, 5, 8, false, 11)]
+    [InlineData(1000, 1, 5, 11, false, 16)]
+    [InlineData(1000, 1, 5, -1, false, 1)]
+    public void GetCeiling_Tests(int elements, int start, int increment, int key, bool orSelf, int expected)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.GetCeiling(key, orSelf);
+      Assert.Equal(expected, result.Key);
+    }
+
+    [Theory]
+    [InlineData(1000, 1, 5, 6000, true)]
+    public void GetCeiling_Tests_Returns_Null(int elements, int start, int increment, int key, bool orSelf)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.GetCeiling(key, orSelf);
+      Assert.Null(result);
+    }
+
     private static Dictionary<int, int> BuildSUT(int elements, int start, int increment)
     {
       var data = new Dictionary<int, int>();

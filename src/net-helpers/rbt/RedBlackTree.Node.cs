@@ -79,6 +79,18 @@ namespace vzh.NetHelpers
     public Node<TKey, TValue> GrandParent 
       => Parent?.Parent;
 
+    /// <summary>
+    ///   Returns node's subtree nodes count.
+    /// </summary>
+    /// <return>Number of subnodes including self</return>
+    public int GetVolume()
+    {
+      var left = Left?.GetVolume() ?? default;
+      var right = Right?.GetVolume() ?? default;
+
+      return left + right + 1;
+    }
+
     internal void SetData(TKey key, TValue value) 
       => Data = new NodeData<TKey, TValue>(key, value);
 

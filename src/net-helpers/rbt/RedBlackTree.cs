@@ -94,33 +94,45 @@ namespace vzh.NetHelpers
 
       return node != null;
     }
-    
+
     /// <summary>
     ///   Returns first node
     /// </summary>
     /// <returns>First node</returns>
-    public Node<TKey, TValue> First() 
+    public Node<TKey, TValue> First()
     {
-      var node = _root;
-
-      while (node?.Left != null)
-        node = node.Left;
-
-      return node;
+      return FirstOf(_root);
     }
 
     /// <summary>
     ///   Returns last node
     /// </summary>
     /// <returns>Last node</returns>
-    public Node<TKey, TValue> Last() 
+    public Node<TKey, TValue> Last()
     {
-      var node = _root;
+      return LastOf(_root);
+    }
 
-      while (node?.Right != null)
-        node = node.Right;
+    /// <summary>
+    ///   Gets a node which key is smaller or equal to provided key
+    /// </summary>
+    /// <param name="key">Key</param>
+    /// <param name="orSelf">Return exact node or not</param>
+    /// <returns>Smaller node</returns> 
+    public Node<TKey, TValue> GetFloor(TKey key, bool orSelf = false)
+    {
+      return GetFloor(_root, key, orSelf);
+    }
 
-      return node;
+    /// <summary>
+    ///   Gets a node which key is greater or equal to provided key
+    /// </summary>
+    /// <param name="key">Key</param>
+    /// <param name="orSelf">Return exact node or not</param>
+    /// <returns>Greater node</returns> 
+    public Node<TKey, TValue> GetCeiling(TKey key, bool orSelf = false)
+    {
+      return GetCeiling(_root, key, orSelf);
     }
 
     /// <summary>
@@ -136,6 +148,12 @@ namespace vzh.NetHelpers
     {
       _root = null;
     }
+
+    /// <summary>
+    ///   Returns tree nodes count
+    /// </summary>
+    /// <returns>Nodes count</returns>
+    public int Count() => _root?.GetVolume() ?? default;
 
     private void DeletionFix(Node<TKey, TValue> node)
     {
@@ -427,6 +445,66 @@ namespace vzh.NetHelpers
       }
 
       return null;
+    }
+
+    private Node<TKey, TValue> FirstOf(Node<TKey, TValue> node)
+    {
+      if (node == null)
+        return null;
+
+      while (node.Left != null)
+        node = node.Left;
+
+      return node;
+    }
+
+    private Node<TKey, TValue> LastOf(Node<TKey, TValue> node)
+    {
+      if (node == null)
+        return null;
+
+      while (node.Right != null)
+        node = node.Right;
+
+      return node;
+    }
+
+    public Node<TKey, TValue> GetFloor(Node<TKey, TValue> node, TKey key, bool orSelf)
+    {
+      if (node == null)
+        return null;
+
+      int compare = key.CompareTo(node.Key);
+      if (compare == 0 && orSelf)
+        return node;
+
+      if (compare <= 0)
+        return GetFloor(node.Left, key, orSelf);
+
+      var right = GetFloor(node.Right, key, orSelf);
+      if (right != null)
+        return right;
+
+      return node;
+    }
+
+    public Node<TKey, TValue> GetCeiling(Node<TKey, TValue> node, TKey key, bool orSelf)
+    {
+      if (node == null)
+        return null;
+
+      int compare = key.CompareTo(node.Key);
+      if (compare == 0 && orSelf)
+        return node;
+
+      if (compare >= 0)
+        return GetCeiling(node.Right, key, orSelf);
+
+      var left = GetCeiling(node.Left, key, orSelf);
+      if (left != null)
+        return left;
+
+      return node;
     }
   }
 }
