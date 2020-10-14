@@ -23,7 +23,6 @@ namespace vzh.NetHelpers.Tests
     public void Insert_ArithmeticSequence(int elements, int start, int increment)
     {
       var data = BuildSUT(elements, start, increment);
-
       var rbt = new RedBlackTree<int, int>(data);
 
       AssertTree(rbt, data.Keys.ToList());
@@ -46,7 +45,6 @@ namespace vzh.NetHelpers.Tests
     public void Delete_Egdes(int elements, int start, int increment)
     {
       var data = BuildSUT(elements, start, increment);
-
       var rbt = new RedBlackTree<int, int>(data);
 
       var list = data.Select(c => c.Key).ToList();
@@ -89,7 +87,6 @@ namespace vzh.NetHelpers.Tests
     public void Delete_Middle(int elements, int start, int increment)
     {
       var data = BuildSUT(elements, start, increment);
-
       var rbt = new RedBlackTree<int, int>(data);
 
       var list = data.Select(c => c.Key).ToList();
@@ -113,11 +110,56 @@ namespace vzh.NetHelpers.Tests
     public void Find_Tests(int elements, int start, int increment, int el, bool expected)
     {
       var data = BuildSUT(elements, start, increment);
-
       var rbt = new RedBlackTree<int, int>(data);
 
       var result = rbt.Find(el);
       Assert.Equal(result != null, expected);
+    }
+
+    [Theory]
+    [InlineData(1000, 1, 1, 1)]
+    [InlineData(1000, 1000, -1, 1)]
+    public void First_Returns_Node(int elements, int start, int increment, int expected)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.First();
+      Assert.NotNull(result);
+      Assert.Equal(result.Key, expected);
+    }
+
+    [Fact]
+    public void First_Returns_Default()
+    {
+      var data = new Dictionary<int, int>();
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.First();
+      Assert.Null(result);
+    }
+
+    [Theory]
+    [InlineData(1000, 1, 1, 1000)]
+    [InlineData(1000, 1000, -1, 1000)]
+    public void Last_Returns_Node(int elements, int start, int increment, int expected)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.Last();
+      Assert.NotNull(result);
+      Assert.Equal(result.Key, expected);
+    }
+
+    [Fact]
+    public void Last_Returns_Default()
+    {
+      var data = new Dictionary<int, int>();
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.Last();
+      Assert.Null(result);
     }
     
     private static Dictionary<int, int> BuildSUT(int elements, int start, int increment)

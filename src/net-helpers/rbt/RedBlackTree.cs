@@ -94,6 +94,34 @@ namespace vzh.NetHelpers
 
       return node != null;
     }
+    
+    /// <summary>
+    ///   Returns a first node
+    /// </summary>
+    /// <returns>First node</returns>
+    public Node<TKey, TValue> First() 
+    {
+      var node = _root;
+
+      while (node?.Left != null)
+        node = node.Left;
+
+      return node;
+    }
+
+    /// <summary>
+    ///   Returns a first node
+    /// </summary>
+    /// <returns>First node</returns>
+    public Node<TKey, TValue> Last() 
+    {
+      var node = _root;
+
+      while (node?.Right != null)
+        node = node.Right;
+
+      return node;
+    }
 
     private void DeletionFix(Node<TKey, TValue> node)
     {
