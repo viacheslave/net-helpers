@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>vzh.NetHelpers</RootNamespace>
+    <Authors>VZH</Authors>
+    <Description>Various .NET functionality</Description>
+    <AssemblyName>vzh.nethelpers</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>net-helpers.tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>
