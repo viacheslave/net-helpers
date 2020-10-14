@@ -7,12 +7,6 @@ namespace vzh.NetHelpers.Tests
 {
 	public class RedBlackTreeTests
 	{
-    /// <summary>
-    ///   Insert API.
-    /// </summary>
-    /// <param name="elements">Number of elements</param>
-    /// <param name="start">Start index</param>
-    /// <param name="increment">Increment</param>
     [Theory]
     [InlineData(1000, 1, 1)]
     [InlineData(1000, 1, 3)]
@@ -28,13 +22,6 @@ namespace vzh.NetHelpers.Tests
       AssertTree(rbt, data.Keys.ToList());
     }
     
-    /// <summary>
-    ///   Delete functionality.
-    ///   Deletes are from list edges.
-    /// </summary>
-    /// <param name="elements">Number of elemetns</param>
-    /// <param name="start">Start index of insert elements</param>
-    /// <param name="increment">Increment of insert elements</param>
     [Theory]
     [InlineData(1000, 1, 1)]
     [InlineData(1000, 1, 3)]
@@ -70,13 +57,6 @@ namespace vzh.NetHelpers.Tests
       }
     }
 
-    /// <summary>
-    ///   Delete functionality.
-    ///   Deletes are at the middle.
-    /// </summary>
-    /// <param name="elements">Number of elemetns</param>
-    /// <param name="start">Start index of insert elements</param>
-    /// <param name="increment">Increment of insert elements</param>
     [Theory]
     [InlineData(1000, 1, 1)]
     [InlineData(1000, 1, 3)]
@@ -160,6 +140,40 @@ namespace vzh.NetHelpers.Tests
 
       var result = rbt.Last();
       Assert.Null(result);
+    }
+
+    [Theory]
+    [InlineData(1000, 1, 1)]
+    public void IsEmpty_Returns_False(int elements, int start, int increment)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.IsEmpty();
+      Assert.False(result);
+    }
+
+    [Fact]
+    public void IsEmpty_Returns_True()
+    {
+      var data = new Dictionary<int, int>();
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.IsEmpty();
+      Assert.True(result);
+    }
+
+    [Theory]
+    [InlineData(1000, 1, 1)]
+    public void Clear_IsEmpty_Returns_True(int elements, int start, int increment)
+    {
+      var data = BuildSUT(elements, start, increment);
+      var rbt = new RedBlackTree<int, int>(data);
+
+      rbt.Clear();
+
+      var result = rbt.IsEmpty();
+      Assert.True(result);
     }
     
     private static Dictionary<int, int> BuildSUT(int elements, int start, int increment)

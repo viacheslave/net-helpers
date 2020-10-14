@@ -96,7 +96,7 @@ namespace vzh.NetHelpers
     }
     
     /// <summary>
-    ///   Returns a first node
+    ///   Returns first node
     /// </summary>
     /// <returns>First node</returns>
     public Node<TKey, TValue> First() 
@@ -110,9 +110,9 @@ namespace vzh.NetHelpers
     }
 
     /// <summary>
-    ///   Returns a first node
+    ///   Returns last node
     /// </summary>
-    /// <returns>First node</returns>
+    /// <returns>Last node</returns>
     public Node<TKey, TValue> Last() 
     {
       var node = _root;
@@ -121,6 +121,20 @@ namespace vzh.NetHelpers
         node = node.Right;
 
       return node;
+    }
+
+    /// <summary>
+    ///   Checks if tree is empty
+    /// </summary>
+    /// <returns>True if empty</returns>
+    public bool IsEmpty() => _root == null;
+
+    /// <summary>
+    ///   Clears the tree
+    /// </summary>
+    public void Clear()
+    {
+      _root = null;
     }
 
     private void DeletionFix(Node<TKey, TValue> node)
