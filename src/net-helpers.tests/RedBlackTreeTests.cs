@@ -105,6 +105,20 @@ namespace vzh.NetHelpers.Tests
         AssertTree(rbt, list);
       }
     }
+
+    [Theory]
+    [InlineData(1000, 1, 1, 1, true)]
+    [InlineData(1000, 1, 1, 500, true)]
+    [InlineData(1000, 1, 1, 10001, false)]
+    public void Find_Tests(int elements, int start, int increment, int el, bool expected)
+    {
+      var data = BuildSUT(elements, start, increment);
+
+      var rbt = new RedBlackTree<int, int>(data);
+
+      var result = rbt.Find(el);
+      Assert.Equal(result != null, expected);
+    }
     
     private static Dictionary<int, int> BuildSUT(int elements, int start, int increment)
     {

@@ -54,6 +54,16 @@ namespace vzh.NetHelpers
     }
 
     /// <summary>
+    ///   Searches for a node by a key
+    /// </summary>
+    /// <param name="key">Key</param>
+    /// <returns>Matched node or null if not found</returns>
+    public Node<TKey, TValue> Find(TKey key)
+    {
+      return GetNode(key);
+    }
+
+    /// <summary>
     ///   Deletes an entry by key
     /// </summary>
     /// <param name="key">Key</param>
