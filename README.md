@@ -12,3 +12,5 @@ Provides a Red-Black Tree with basic operations:
   - Last element.
   - Floor (with or without self).
   - Ceiling (with or without self).
+  - Contains by key.
+  - Accessor.
