@@ -14,3 +14,7 @@ Provides a Red-Black Tree with basic operations:
   - Ceiling (with or without self).
   - Contains by key.
   - Accessor.
+
+## Intervals
+
+  - Intersection.

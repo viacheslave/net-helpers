@@ -5,8 +5,8 @@ using Xunit;
 
 namespace vzh.NetHelpers.Tests
 {
-	public class RedBlackTreeTests
-	{
+  public class RedBlackTreeTests
+  {
     [Theory]
     [InlineData(1000, 1, 1)]
     [InlineData(1000, 1, 3)]
@@ -21,7 +21,7 @@ namespace vzh.NetHelpers.Tests
 
       AssertTree(rbt, data.Keys.ToList());
     }
-    
+
     [Theory]
     [InlineData(1000, 1, 1)]
     [InlineData(1000, 1, 3)]
@@ -324,7 +324,7 @@ namespace vzh.NetHelpers.Tests
     }
 
     private static void AssertTree<TKey, TValue>(RedBlackTree<TKey, TValue> rbt, List<TKey> keys)
-      where TKey: IComparable<TKey>
+      where TKey : IComparable<TKey>
     {
       var nodes = new List<Node<TKey, TValue>>();
       Traverse(rbt.Root, nodes);
@@ -376,7 +376,7 @@ namespace vzh.NetHelpers.Tests
       Assert.True(nodesHeights.Select(c => c.height).All(x => x <= expectedMaxHeight));
     }
 
-    private static void Traverse<TKey, TValue>(Node<TKey, TValue> node, List<Node<TKey, TValue>> nodes) 
+    private static void Traverse<TKey, TValue>(Node<TKey, TValue> node, List<Node<TKey, TValue>> nodes)
       where TKey : IComparable<TKey>
     {
       if (node == null)
@@ -387,7 +387,7 @@ namespace vzh.NetHelpers.Tests
       Traverse(node.Right, nodes);
     }
 
-    private static void TraverseBlackDepth<TKey, TValue>(Node<TKey, TValue> node, List<(TKey key, int depth)> nodes, int depth) 
+    private static void TraverseBlackDepth<TKey, TValue>(Node<TKey, TValue> node, List<(TKey key, int depth)> nodes, int depth)
       where TKey : IComparable<TKey>
     {
       if (node == null)
@@ -403,7 +403,7 @@ namespace vzh.NetHelpers.Tests
       TraverseBlackDepth(node.Right, nodes, depth);
     }
 
-    private static void TraverseHeight<TKey, TValue>(Node<TKey, TValue> node, List<(TKey key, int height)> nodes, int height) 
+    private static void TraverseHeight<TKey, TValue>(Node<TKey, TValue> node, List<(TKey key, int height)> nodes, int height)
       where TKey : IComparable<TKey>
     {
       if (node == null)
