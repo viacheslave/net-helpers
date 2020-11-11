@@ -9,7 +9,7 @@ namespace vzh.NetHelpers
   /// <typeparam name="TValue">Value type</typeparam>
   public class Node<TKey, TValue>
   {
-    internal NodeData<TKey, TValue> Data { get; set; }
+    internal NodeData Data { get; set; }
 
     /// <summary>
     ///   Node Key
@@ -46,7 +46,7 @@ namespace vzh.NetHelpers
       if (key == null)
         throw new ArgumentException(nameof(key));
 
-      Data = new NodeData<TKey, TValue>(key, value);
+      Data = new NodeData(key, value);
     }
 
     /// <summary>
@@ -92,7 +92,7 @@ namespace vzh.NetHelpers
     }
 
     internal void SetData(TKey key, TValue value) 
-      => Data = new NodeData<TKey, TValue>(key, value);
+      => Data = new NodeData(key, value);
 
     public override string ToString()
     {
@@ -102,7 +102,7 @@ namespace vzh.NetHelpers
       return $"{leftKey} [{Key} {Color}] {rightKey}";
     }
 
-    internal readonly struct NodeData<TKey, TValue>
+    internal readonly struct NodeData
     {
       public readonly TKey Key;
       public readonly TValue Value;
