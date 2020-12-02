@@ -3,7 +3,7 @@ using System;
 namespace vzh.NetHelpers
 {
   /// <summary>
-  ///   Segement Tree that supports queries for min element value.
+  ///   Segment Tree that supports queries for min element value.
   /// </summary>
   public class SegmentTreeQueryMin
   {
