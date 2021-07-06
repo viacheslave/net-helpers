@@ -1,20 +1,23 @@
 # .NET helpers and data structures
 
+## Trie
+
 ## Red Black Tree
 
-Provides a Red-Black Tree with basic operations:
-  - Insert element (key/value pair).
-  - Delete element by key.
-  - Count
-  - IsEmpty.
-  - Clear.
-  - First element.
-  - Last element.
-  - Floor (with or without self).
-  - Ceiling (with or without self).
-  - Contains by key.
-  - Accessor.
+  - insert element (key/value pair)
+  - delete element by key
+  - find first and last elements
+  - find floor and ceiliing elements
+  - empty, clear, count, contains
+  - accessor
 
 ## Intervals
 
-  - Intersection.
+  - intersection
+
+## Skip List
+
+  - search
+  - add
+  - erase
+
